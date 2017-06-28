@@ -1,0 +1,62 @@
+html, body {
+  background-color:#CCCCCC;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:14pt;
+}
+.container {
+    width:960px;
+    display:block;
+    margin:0 auto;
+    background-color:white;
+    box-shadow: 10px 10px 5px #888888;
+    padding:20px;
+    overflow-y:auto;
+
+}
+.wrapper {
+  width:100%;
+  display:block;
+}
+
+/* Game */
+table {
+  margin:1em auto;
+}
+td {
+  height:30px;
+  width:30px;
+  border:1px solid;
+  text-align:center;
+}
+  td.pre {
+    font-weight:bold;
+  }
+td:first-child {
+  border-left:solid;
+}
+td:nth-child(3n) {
+  border-right:solid ;
+}
+tr:first-child {
+  border-top:solid;
+}
+tr:nth-child(3n) td {
+  border-bottom:solid ;
+}
+
+/* Home page */
+.home-screenshot {
+  float:left;
+  width:40%;
+}
+
+  .home-screenshot .desc {
+    color:grey;
+    font-size:11pt;
+    text-align:center;
+    width:92%;
+  }
+.home-description {
+  float:left;
+  width:60%;
+}
