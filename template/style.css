@@ -31,16 +31,17 @@ td {
   td.pre {
     font-weight:bold;
   }
-td:first-child {
+
+.first-cell {
   border-left:solid;
 }
-td:nth-child(3n) {
+.third-cell {
   border-right:solid ;
 }
-tr:first-child {
+.first-row {
   border-top:solid;
 }
-tr:nth-child(3n) td {
+.third-row td{
   border-bottom:solid ;
 }
 
