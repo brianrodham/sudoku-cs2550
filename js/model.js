@@ -1,18 +1,5 @@
-<html>
-    <head>
-            <title>Sudoku - 2550</title>
-            <link rel="stylesheet" type="text/css" href="template/style.css">
+var game = {
 
-    </head>
-
-    <body>
-        <div class="container">
-            <div id="game-container"></div>
-
-        <center>00:05:25 |  <button class="play-button" value="validate" onclick="validate()">Validate</button>
- </center>
-
-    <pre>
 
     board:  [
                     ['1:pre', '7:pre', '', '5:pre', '2:pre', '', '', '', ''],
@@ -58,9 +45,4 @@
     checkSquares: function(){
         return true;
     }
-        </pre>
-        </div>
-    </body>
-    <script type="text/javascript" src="js/model.js"></script>
-    <script type="text/javascript" src="js/controller.js"></script>
-</html>
+}
