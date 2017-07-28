@@ -21,15 +21,31 @@ html, body {
 /* Game */
 table {
   margin:1em auto;
+  font:14pt !important;
 }
 td {
   height:30px;
   width:30px;
   border:1px solid;
   text-align:center;
+  cursor: pointer;
 }
-  td.pre {
-    font-weight:bold;
+td:hover {
+  background-color: lightcoral;
+}
+  td input {
+    border:none;
+    text-align:center;
+    width:inherit;
+    background-color:transparent;
+    height:100%;
+    width:100%;
+  }
+  td.selected {
+    background-color:lightgrey;
+  }
+  td.pre input {
+    font-weight:800;
   }
 
 .first-cell {
@@ -60,4 +76,12 @@ td {
 .home-description {
   float:left;
   width:60%;
+}
+
+#gameTitle {
+  position:relative;
+
+}
+.hidden {
+  display:none;
 }

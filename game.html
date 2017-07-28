@@ -1,18 +1,32 @@
 <html>
-    <head>
-            <title>Sudoku - 2550</title>
-            <link rel="stylesheet" type="text/css" href="template/style.css">
 
-    </head>
+<head>
+    <title>Sudoku - 2550</title>
+    <link rel="stylesheet" type="text/css" href="template/style.css">
 
-    <body>
-        <div class="container">
-            <div id="game-container"></div>
+</head>
 
-        <center>00:05:25 |  <button class="play-button" value="validate" onclick="validate()">Validate</button>
- </center>
+<body>
+    <div class="container">
+        <center><h1 id="gameTitle">Sudoku - CS2550</h1></center>
+        <center id="itemClicked"></center>
+        <div id="game-container"></div>
 
-    <pre>
+        <center><span id="minutes">00</span>:<span id="seconds">00</span> |
+            <button class="play-button" value="validate" onclick="validate()">Validate</button> |
+            <button class="reset-button" value="reset" onclick="reset()">Reset</button> |
+            <select id="newGame">
+                <option value="EASY">Easy</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HARD">Hard</option>
+            </select>
+            <button class="new-button" value="newGame" onclick="newGame()">New Game</button>
+        </center>
+        <hr>
+        <button class="show-button" value="show" onclick="showModelData()">Show Model Data</button>
+        <button class="hide-button hidden" value="hide" onclick="hideModelData()">Hide Model Data</button>
+
+        <pre id="modelData" class="hidden">
 
     board:  [
                     ['1:pre', '7:pre', '', '5:pre', '2:pre', '', '', '', ''],
@@ -59,8 +73,9 @@
         return true;
     }
         </pre>
-        </div>
-    </body>
-    <script type="text/javascript" src="js/model.js"></script>
-    <script type="text/javascript" src="js/controller.js"></script>
+    </div>
+</body>
+<script type="text/javascript" src="js/model.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+
 </html>
