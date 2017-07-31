@@ -103,6 +103,7 @@ function reset() {
         });
     });
     populateData();
+    resetClock()
 }
 
 
@@ -115,6 +116,7 @@ function newGame(difficulty){
     }
     console.log("Loading game with difficulty " + difficulty);
     game.loadBoard(difficulty, populateData);
+    resetClock();
     
 }
 
@@ -124,6 +126,15 @@ function showModelData(){
 }
 function hideModelData(){
     document.getElementById("modelData").classList.add("hidden");
+}
+
+function displayUserData(){
+    document.getElementById("userData").innerHTML = localStorage.getItem("sudoku");
+}
+function logout(){
+    localStorage.removeItem("sudoku");
+    displayUserData();
+    /*window.location.href = "./index.html";*/
 }
 
 function startAnimation(){
@@ -150,7 +161,10 @@ setInterval( function(){
     document.getElementById("seconds").innerHTML=pad(++sec%60);
     document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
 }, 1000);
+function resetClock(){
+    sec=0;
+}
 
 
+displayUserData();
 generateBoard(9, 9);
-console.log("Starting?");

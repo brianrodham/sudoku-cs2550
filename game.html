@@ -7,6 +7,11 @@
 </head>
 
 <body>
+    <div class="container blue">
+        <span id="userData"></span>
+        <button class="float-right" value="Logout" onclick="logout()">Clear local storage</button>
+
+    </div>
     <div class="container">
         <center><h1 id="gameTitle">Sudoku - CS2550</h1></center>
         <center id="itemClicked"></center>
@@ -28,54 +33,74 @@
 
         <pre id="modelData" class="hidden">
 
+
+    // The current board state
     board:  [
-                    ['1:pre', '7:pre', '', '5:pre', '2:pre', '', '', '', ''],
-                    ['', '2', '8', '', '7:pre', '9:pre','', '6:pre', '3:pre'],
-                    ['', '', '9:pre','8:pre', '3:pre', '4:pre','7:pre', '', '1:pre'],
-                    ['', '', '','4:pre', '', '','', '3:pre', '2:pre'],
-                    ['', '4:pre', '','', '5', '2','', '', '6:pre'],
-                    ['7:pre', '', '','3:pre', '1:pre', '','', '', '4:pre'],
-                    ['5:pre', '', '','', '8', '','', '4:pre', '9:pre'],
-                    ['', '8:pre', '','', '9:pre', '','', '', ''],
-                    ['9:pre', '1:pre', '','', '4:pre', '5:pre','3:pre', '8', '7']     
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', '']     
     ],
+
+    // The answer key
+    key:  [
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', ''],
+                    ['', '', '', '', '', '','', '', '']     
+    ],
+
+    // Determines if the board has been completed
     gameOver: false,
-    gameTime: "00:05:25",
+
+    // Length the game has been going on. Since there is no option to serialize a game state 
+    // I'm not sure if this needs to be stored in the model vs just rendering on the page
+    gameTime: "00:00:00",
+
+
+    //Lists of json files for each difficulty
+    easyPuzzles: ['easy-1.json','easy-2.json','easy-3.json', 'easy-4.json'],
+    mediumPuzzles: ['medium-1.json','medium-2.json','medium-3.json'],
+    hardPuzzles: ['hard-1.json','hard-2.json','hard-3.json'],
+
+    // Loads the board data from a json file
+    loadBoard: function(difficulty, callback){},
     // Sets the value of specific box in the model
-    setValue: function(value, row, col) {
-        this.board[row][col] = value;
-    },
+    setValue: function(value, row, col) { },
+
     // Gets the value of a specific box
-    getValue: function(row, col){
-        return this.board[row][col];
-    },
+    getValue: function(row, col){},
 
     // Validates the game data to see if we've won or not
-    validate: function(){
-        if( this.checkRows() && this.checkCols() && this.checkSquares()){
-            //this.gameOver = true;
-            console.log("Validating data");
-        }
-    },
+    validate: function(){},
 
     // Checks to see if all of the rows are correct
-    checkRows: function(){
-        return true;
-    },
+    checkRows: function(){    },
 
     // Checks to see if all the cols are correct
-    checkCols: function(){
-        return true;
-    },
+    checkCols: function(){ },
+}
 
-    // Checks to see if the 3x3 squares are all correct
-    checkSquares: function(){
-        return true;
-    }
+// Enum for game difficulty
+var DIFFICULTY = {
+  EASY : {value: 0, name: "Easy", code: "E"}, 
+  MEDIUM: {value: 1, name: "Medium", code: "M"}, 
+  HARD : {value: 2, name: "Hard", code: "H"}
+};
         </pre>
     </div>
 </body>
 <script type="text/javascript" src="js/model.js"></script>
-<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/game.controller.js"></script>
 
 </html>

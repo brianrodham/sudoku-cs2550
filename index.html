@@ -19,8 +19,21 @@
                         Bolded numbers are placed on the board at the beginning of the game to help you fill in the rest of the board. These numbers can not be changed. 
                 </p>
                 <p>You can read more on Wikipedia <a href="https://en.wikipedia.org/wiki/Sudoku" target="_blank">here</a></p>
-                <button class="play-button" value="Play Now" onclick="window.location.href='game.html'">Play Now</button>
+                <!-- <button class="play-button" value="Play Now" onclick="window.location.href='game.html'">Play Now</button>-->
             </div>
         </div>
+        <div class="container blue">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+
+            <button class="play-button" value="Login" onclick="login()">Play Now</button>
+
+            <span id="errorText"></span>
+
+        </div>
     </body>
+    <script type="text/javascript" src="js/home.controller.js"></script>
 </html>
