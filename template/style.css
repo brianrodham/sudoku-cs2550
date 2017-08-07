@@ -35,7 +35,7 @@ td {
   cursor: pointer;
 }
 td:hover {
-  background-color: lightcoral;
+  background-color: lightblue;
 }
   td input {
     border:none;
@@ -95,4 +95,10 @@ td:hover {
 }
 .float-right {
   float:right;
+}
+.error {
+  background-color: lightcoral;
+}
+#victoryDisplay {
+  padding:20px;
 }

@@ -3,7 +3,25 @@
 var selectedCell = null;
 
 function validate() {
-    game.validate();
+    var errors = game.validate();
+    if(game.gameOver){
+        console.log("You win!");
+        document.getElementById("gameContainer").classList.add("hidden");
+        document.getElementById("victoryDisplay").classList.remove("hidden");
+        // Show message that you won the game
+    }
+    else {  
+        var table = document.getElementById('game-table');
+        errors.forEach(function(error){
+            i = error[0];
+            j = error[1];
+           // console.log("Error in cell: " + i + "," + j);
+            var elem = table.rows[i].cells[j];
+            elem.classList.remove("selected");
+            elem.classList.add("error");
+            console.log("Adding error styling to:" + error);
+        });
+    }
 }
 
 function generateBoard(rows, columns) {
@@ -15,7 +33,7 @@ function generateBoard(rows, columns) {
 
 
 function generateTable(rows, columns) {
-    var gameContainer = document.getElementById('game-container');
+    var gameContainer = document.getElementById('gameContainer');
 
     // Create the container for the grid
     var gameTable = document.createElement("table");
@@ -31,21 +49,24 @@ function generateTable(rows, columns) {
         }
 
         for (j = 1; j <= columns; j++) {
-            var cell = document.createElement("td");
-            var input = document.createElement("input");
-            input.type = "text";
-            input.maxLength=1;
-            input.onkeypress = function(event) {return event.charCode >= 49 && event.charCode <= 57}
-            cell.appendChild(input);
-            /* Cell styling using javascript */
-            if (j == 1) {
-                cell.className = "first-cell";
-            }
-            else if (j && (j % 3 === 0)) {
-                cell.className = "third-cell";
-            }
+            (function(i,j){
+                var cell = document.createElement("td");
+                var input = document.createElement("input");
+                input.type = "text";
+                input.maxLength=1;
+                input.onkeypress = function(event) {return validateKeypress(event)}
+                input.onchange = function(event) { onChange(event.target, i-1, j-1) };
+                cell.appendChild(input);
+                /* Cell styling using javascript */
+                if (j == 1) {
+                    cell.className = "first-cell";
+                }
+                else if (j && (j % 3 === 0)) {
+                    cell.className = "third-cell";
+                }
 
-            row.appendChild(cell);
+                row.appendChild(cell);
+            })(i,j);
         }
         gameTable.appendChild(row);
     }
@@ -66,7 +87,7 @@ function populateData() {
             (function (i, j, row, col) {
                 value = game.getValue(i, j);
                // console.log("Adding data " + value + " to cell: " + i.toString() + "," + j.toString());
-
+                row.cells[j].classList.remove("error");
                 if (value.includes(":pre")) { // If the value is a preset default
                     row.cells[j].classList.add("pre");
                     cellValue = value.replace(":pre", "");
@@ -95,7 +116,6 @@ function populateData() {
 function reset() {
     game.board.forEach(function (row, i) {
         row.forEach(function (cell, j) {
-            console.log(cell);
             if (!cell.includes(":pre")) {
                 //cell = "";
                 game.board[i][j] = "";
@@ -106,9 +126,7 @@ function reset() {
     resetClock()
 }
 
-
 function newGame(difficulty){
-    console.log("NEW GAME");
     var difficulty = difficulty;
     if(difficulty==undefined){
        var input = document.getElementById("newGame").value;
@@ -117,16 +135,42 @@ function newGame(difficulty){
     console.log("Loading game with difficulty " + difficulty);
     game.loadBoard(difficulty, populateData);
     resetClock();
+    console.log("Json");
+    console.log(game.gameJson);
+    document.getElementById("jsonData").innerHTML = game.gameJson;
+    document.getElementById("gameContainer").classList.remove("hidden");
+    document.getElementById("victoryDisplay").classList.add("hidden");
     
 }
 
+// Event handler for when they put in a new number
+function onChange(target,i, j){
+    target.parentElement.classList.remove("error");    
+    game.setValue(target.value, i, j);
+}
 
 function showModelData(){
     document.getElementById("modelData").classList.remove("hidden");
+    document.getElementById("hide-button").classList.remove("hidden");
+    document.getElementById("show-button").classList.add("hidden");
 }
 function hideModelData(){
     document.getElementById("modelData").classList.add("hidden");
+    document.getElementById("hide-button").classList.add("hidden");
+    document.getElementById("show-button").classList.remove("hidden");
 }
+
+function showJsonData(){
+    document.getElementById("jsonData").classList.remove("hidden");
+    document.getElementById("hide-json-button").classList.remove("hidden");
+    document.getElementById("show-json-button").classList.add("hidden");
+}
+function hideJsonData(){
+    document.getElementById("jsonData").classList.add("hidden");
+    document.getElementById("hide-json-button").classList.add("hidden");
+    document.getElementById("show-json-button").classList.remove("hidden");
+}
+
 
 function displayUserData(){
     document.getElementById("userData").innerHTML = localStorage.getItem("sudoku");
@@ -144,6 +188,7 @@ function startAnimation(){
     element.style.top = "-500px";
     setTimeout(moveElementDown, speed);
 }
+
 function moveElementDown(){
     var speed = 16;
     var element = document.getElementById("gameTitle");
@@ -153,6 +198,26 @@ function moveElementDown(){
     if(newTop < 10){
      setTimeout(moveElementDown, speed);
     }
+}
+
+function testInput(){
+
+    game.populateAnswers();
+    populateData();
+}
+
+function validateKeypress(event){
+    var valid = true;
+
+    // If the character is not between 1 and 9 it's invalid.
+    if(event.charCode < 49 || event.charCode > 57){
+        valid = false;
+    }
+    // Add some notible exceptions such as the arrow keys and backspace/delete
+    if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39){
+        valid = true;
+    }
+    return valid;
 }
 
 var sec = 0;

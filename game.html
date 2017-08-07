@@ -13,11 +13,21 @@
 
     </div>
     <div class="container">
-        <center><h1 id="gameTitle">Sudoku - CS2550</h1></center>
+        <center>
+            <h1 id="gameTitle">Sudoku - CS2550</h1>
+            <span id="minutes">00</span>:<span id="seconds">00</span> 
+            </center>
         <center id="itemClicked"></center>
-        <div id="game-container"></div>
-
-        <center><span id="minutes">00</span>:<span id="seconds">00</span> |
+        <div id="victoryDisplay" class="hidden">
+            <center>
+                <h1 class="victoryText">You win!</h1>
+                <button class="victory-button" value="victory" onclick="newGame()">Play Again</button>
+            </center>          
+        </div>
+        <div id="gameContainer"></div>
+        
+        <center>
+            <button class="play-button" value="validate" onclick="testInput()">Test</button> |
             <button class="play-button" value="validate" onclick="validate()">Validate</button> |
             <button class="reset-button" value="reset" onclick="reset()">Reset</button> |
             <select id="newGame">
@@ -28,8 +38,11 @@
             <button class="new-button" value="newGame" onclick="newGame()">New Game</button>
         </center>
         <hr>
-        <button class="show-button" value="show" onclick="showModelData()">Show Model Data</button>
-        <button class="hide-button hidden" value="hide" onclick="hideModelData()">Hide Model Data</button>
+        <button id="show-button" class="" value="show" onclick="showModelData()">Show Model Data</button>
+        <button id="hide-button" class="hidden" value="hide" onclick="hideModelData()">Hide Model Data</button>
+
+        <button id="show-json-button" class="" value="show" onclick="showJsonData()">Show JSON Data</button>
+        <button id="hide-json-button" class="hidden" value="hide" onclick="hideJsonData()">Hide JSON Data</button>
 
         <pre id="modelData" class="hidden">
 
@@ -84,11 +97,6 @@
     // Validates the game data to see if we've won or not
     validate: function(){},
 
-    // Checks to see if all of the rows are correct
-    checkRows: function(){    },
-
-    // Checks to see if all the cols are correct
-    checkCols: function(){ },
 }
 
 // Enum for game difficulty
@@ -98,6 +106,7 @@ var DIFFICULTY = {
   HARD : {value: 2, name: "Hard", code: "H"}
 };
         </pre>
+        <pre id="jsonData" class="hidden"></span>
     </div>
 </body>
 <script type="text/javascript" src="js/model.js"></script>
