@@ -1,25 +1,30 @@
 
-//var game = new gameData(); // Model
 var selectedCell = null;
 
 function validate() {
     var errors = game.validate();
     if(game.gameOver){
-        console.log("You win!");
+        // Show message that you won the game
         document.getElementById("gameContainer").classList.add("hidden");
         document.getElementById("victoryDisplay").classList.remove("hidden");
-        // Show message that you won the game
+
+        // HTML5 canvas
+        var c = document.getElementById("victoryText");
+        var ctx = c.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.strokeText("You Win!",10,50);
+
+        // HTML5 Audio controlled by Javascript
+        document.getElementById("victorySound").play()
     }
     else {  
         var table = document.getElementById('game-table');
         errors.forEach(function(error){
             i = error[0];
             j = error[1];
-           // console.log("Error in cell: " + i + "," + j);
             var elem = table.rows[i].cells[j];
             elem.classList.remove("selected");
             elem.classList.add("error");
-            console.log("Adding error styling to:" + error);
         });
     }
 }
@@ -27,7 +32,6 @@ function validate() {
 function generateBoard(rows, columns) {
     generateTable(rows, columns);
     newGame(DIFFICULTY.EASY);
-    startAnimation();
 }
 
 
@@ -75,18 +79,16 @@ function generateTable(rows, columns) {
 
 // Takes the data from the model and puts it in the view
 function populateData() {
-    console.log("Populating grid");
-    console.log(game.board);
     var value;
     var cellValue;
-    //var grid = game.board; // Gets the grid data from the model
+
     var table = document.getElementById('game-table');
     for (var i = 0, row; row = table.rows[i]; i++) { //iterate through rows     
 
         for (var j = 0, col; col = row.cells[j]; j++) { //iterate through columns
             (function (i, j, row, col) {
                 value = game.getValue(i, j);
-               // console.log("Adding data " + value + " to cell: " + i.toString() + "," + j.toString());
+
                 row.cells[j].classList.remove("error");
                 if (value.includes(":pre")) { // If the value is a preset default
                     row.cells[j].classList.add("pre");
@@ -117,7 +119,6 @@ function reset() {
     game.board.forEach(function (row, i) {
         row.forEach(function (cell, j) {
             if (!cell.includes(":pre")) {
-                //cell = "";
                 game.board[i][j] = "";
             }
         });
@@ -132,11 +133,9 @@ function newGame(difficulty){
        var input = document.getElementById("newGame").value;
        difficulty = DIFFICULTY[input];
     }
-    console.log("Loading game with difficulty " + difficulty);
     game.loadBoard(difficulty, populateData);
     resetClock();
-    console.log("Json");
-    console.log(game.gameJson);
+
     document.getElementById("jsonData").innerHTML = game.gameJson;
     document.getElementById("gameContainer").classList.remove("hidden");
     document.getElementById("victoryDisplay").classList.add("hidden");
@@ -175,29 +174,11 @@ function hideJsonData(){
 function displayUserData(){
     document.getElementById("userData").innerHTML = localStorage.getItem("sudoku");
 }
+
 function logout(){
     localStorage.removeItem("sudoku");
     displayUserData();
-    /*window.location.href = "./index.html";*/
-}
 
-function startAnimation(){
-    console.log("ANIMATING");
-    var element = document.getElementById("gameTitle");
-    var speed = 16;
-    element.style.top = "-500px";
-    setTimeout(moveElementDown, speed);
-}
-
-function moveElementDown(){
-    var speed = 16;
-    var element = document.getElementById("gameTitle");
-    var currentTop  =  element.style.top.substring(0,element.style.top.length-2);
-    var newTop = parseInt(currentTop) + 12;
-    element.style.top =  newTop + "px";
-    if(newTop < 10){
-     setTimeout(moveElementDown, speed);
-    }
 }
 
 function testInput(){
@@ -229,7 +210,6 @@ setInterval( function(){
 function resetClock(){
     sec=0;
 }
-
 
 displayUserData();
 generateBoard(9, 9);

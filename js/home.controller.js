@@ -21,8 +21,6 @@ function login(){
                     var errorText = document.getElementById("errorText");
                     errorText.innerHTML= "The server has returned an invalid response";
                 }
-                console.log(userData);
-
             }
         }
     };

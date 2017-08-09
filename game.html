@@ -9,7 +9,7 @@
 <body>
     <div class="container blue">
         <span id="userData"></span>
-        <button class="float-right" value="Logout" onclick="logout()">Clear local storage</button>
+        <!--<button class="float-right" value="Logout" onclick="logout()">Clear local storage</button>-->
 
     </div>
     <div class="container">
@@ -20,7 +20,9 @@
         <center id="itemClicked"></center>
         <div id="victoryDisplay" class="hidden">
             <center>
-                <h1 class="victoryText">You win!</h1>
+                <!--<h1 class="victoryText">You win!</h1>-->
+                <canvas id="victoryText" width="150" height="100"></canvas>
+                <br>     
                 <button class="victory-button" value="victory" onclick="newGame()">Play Again</button>
             </center>          
         </div>
@@ -36,7 +38,13 @@
                 <option value="HARD">Hard</option>
             </select>
             <button class="new-button" value="newGame" onclick="newGame()">New Game</button>
+            <audio id="victorySound" src="music/yay-sound.wav"> </audio>
+
+
         </center>
+    
+
+
         <hr>
         <button id="show-button" class="" value="show" onclick="showModelData()">Show Model Data</button>
         <button id="hide-button" class="hidden" value="hide" onclick="hideModelData()">Hide Model Data</button>
